@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Video Player</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    #jwplayerDiv {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      z-index: 1;
+    }
+    .banner {
+      text-align: center;
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 800px;
+      background-color: #0078d7;
+      color: white;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .banner a {
+      color: #ffde59;
+      text-decoration: none;
+    }
+    .banner a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="jwplayerDiv"></div>
+
+  <!-- Banner Section -->
+  <div class="banner">
+    Join our Telegram for more live updates: 
+    <a href="https://t.me/+IXCKFIL7DE80MDc9" target="_blank">Click Here</a>
+  </div>
+
+  <script>
+    // Function to retrieve the videoUrl parameter from the URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Get the videoUrl parameter from the URL
+    const videoUrl = getQueryParam('videoUrl');
+
+    if (videoUrl) {
+      // Initialize JWPlayer with the dynamic videoUrl
+      jwplayer("jwplayerDiv").setup({
+        file: videoUrl,
+        autostart: true,
+        controls: true,
+        width: "100%",
+        aspectratio: "16:9"
+      });
+    } else {
+      // If no videoUrl is provided, display a message
+      document.getElementById("jwplayerDiv").innerHTML = `
+        <p style="text-align: center; font-size: 18px; color: #333;">
+          No video URL provided! Please add ?videoUrl=YOUR_VIDEO_URL to the page URL.
+        </p>`;
+    }
+  </script>
+</body>
+</html>
