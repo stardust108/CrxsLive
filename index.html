@@ -2,79 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dynamic Video Player</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
-  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+  <title>Dynamic HLS Player</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(180deg, #1e3b50, #102533);
-      color: white;
-    }
-    #jwplayerDiv {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 20px auto;
-      z-index: 1;
-    }
-    .banner {
-      text-align: center;
-      margin: 20px auto;
-      padding: 15px;
-      max-width: 800px;
-      background-color: #0078d7;
-      color: white;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .banner a {
-      color: #ffde59;
+    /* Styling for the Join Telegram button */
+    .telegram-button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #fff;
+      background-color: #0088cc;
+      border: none;
+      border-radius: 5px;
       text-decoration: none;
+      text-align: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
-    .banner a:hover {
-      text-decoration: underline;
+
+    .telegram-button:hover {
+      transform: scale(1.1);
+      background-color: #0077b3;
     }
   </style>
 </head>
 <body>
-  <div id="jwplayerDiv"></div>
+  <h1>Dynamic HLS Player</h1>
+  <iframe id="hls-player" src="" width="640px" height="360px" frameborder="0" allowfullscreen style="max-width: 100%;"></iframe>
 
-  <!-- Banner Section -->
-  <div class="banner">
-    Join our Telegram for more live updates, Cricket Clips, 4K Cricket Wallpapers, and Match Live Links: 
-    <a href="https://t.me/+IXCKFIL7DE80MDc9" target="_blank">@CrxcShivam</a>
-  </div>
+  <!-- Animated Join Telegram Button -->
+  <a href="https://t.me/+nJCypsY4VzlkZjdl" class="telegram-button" target="_blank">Join Telegram</a>
 
   <script>
-    // Function to retrieve the videoUrl parameter from the URL
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
+    // Get the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const userUrl = urlParams.get('url'); // Assuming the parameter is 'url'
 
-    // Get the videoUrl parameter from the URL
-    const videoUrl = getQueryParam('videoUrl');
-
-    if (videoUrl) {
-      // Initialize JWPlayer with the dynamic videoUrl
-      jwplayer("jwplayerDiv").setup({
-        file: videoUrl,
-        autostart: true,
-        controls: true,
-        width: "100%",
-        aspectratio: "16:9"
-      });
+    if (userUrl) {
+      // Set the iframe's src dynamically
+      const iframe = document.getElementById('hls-player');
+      iframe.src = `https://www.livereacting.com/tools/hls-player-embed?url=${encodeURIComponent(userUrl)}`;
     } else {
-      // If no videoUrl is provided, display a message
-      document.getElementById("jwplayerDiv").innerHTML = `
-        <p style="text-align: center; font-size: 18px; color: #ccc;">
-          No video URL provided! Please add ?videoUrl=YOUR_VIDEO_URL to the page URL.
-        </p>`;
+      // Handle cases where the URL parameter is missing
+      document.body.innerHTML = "<h1>Error: No URL provided!</h1>";
     }
   </script>
 </body>
